@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults()); // For basic authentication
+
         return http.build();
     }
 
