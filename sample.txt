@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: "docker"
+    depends_on:
+      - database
+
+  database:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: oder_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+    ports:
+      - "3306:3306"

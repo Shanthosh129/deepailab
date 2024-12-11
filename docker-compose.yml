@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  order-management-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://163.47.10.11:3306/order_db # External DB URL
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin  # Replace with actual password
+    ports:
+      - "8081:8081"
