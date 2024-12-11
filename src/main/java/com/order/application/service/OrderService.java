@@ -11,6 +11,9 @@ import com.order.application.repository.ClientRepo;
 import com.order.application.repository.InventoryRepo;
 import com.order.application.repository.OrderRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +66,8 @@ public class OrderService {
     // cancel order
     @Transactional
     public OrderResponseDto cancelOrder(String referenceNumber) {
+        String clientEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         Optional<Order> orderOpt = orderRepo.findByReferenceNumber(referenceNumber);
         if(orderOpt.isEmpty()) {
             throw new RuntimeException("Order not found");
@@ -80,5 +85,15 @@ public class OrderService {
         order.setStatus("CANCELLED");
         orderRepo.save(order);
         return OrderMapper.toOrderResponse(order);
+    }
+
+    public Page<OrderResponseDto> getOrderHistory(int clientId, int page , int size) {
+        String clientEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Order> orderPage = orderRepo.findByClientId(clientId, pageable);
+
+        // Convert Order entities to OrderResponseDto
+        return orderPage.map(OrderMapper::toOrderResponse);
     }
 }
