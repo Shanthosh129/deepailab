@@ -5,11 +5,11 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file to the container
-COPY application.jar /app/application.jar
+COPY application.jar /app/app.jar
 COPY .env /app/.env
 
 # Expose the application port (update if needed)
 EXPOSE 8081
 
 # Command to run the application
-ENTRYPOINT ["java", "-jar", "/app/application.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
