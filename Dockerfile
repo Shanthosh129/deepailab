@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy the JAR file to the container
 COPY application.jar /app/application.jar
 COPY .env /app/.env
+
 # Expose the application port (update if needed)
 EXPOSE 8081
 
