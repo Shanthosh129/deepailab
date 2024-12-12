@@ -9,5 +9,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://163.47.10.11:3306/order_db # External DB URL
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin  # Replace with actual password
+      volumes:
+        -./.env:/app/.env
     ports:
       - "8081:8081"
